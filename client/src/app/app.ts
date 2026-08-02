@@ -1,8 +1,5 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, inject, OnInit, signal } from '@angular/core';
-import { lastValueFrom } from 'rxjs';
+import { Component, inject } from '@angular/core';
 import { Nav } from "../layout/nav/nav";
-import { User } from '../types/user';
 import { Router, RouterOutlet } from "@angular/router";
 
 @Component({
