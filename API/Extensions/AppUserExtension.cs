@@ -1,5 +1,5 @@
 using System;
-using API.DTO;
+using API.DTOs;
 using API.Entities;
 using API.Interfaces;
 

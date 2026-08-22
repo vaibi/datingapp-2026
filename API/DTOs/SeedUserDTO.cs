@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace API.DTO;
+namespace API.DTOs;
 
 public class SeedUserDTO
 {
