@@ -1,13 +1,13 @@
 using API.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Data;
 
-public class AppDbContext(DbContextOptions options) : DbContext(options)
+public class AppDbContext(DbContextOptions options) : IdentityDbContext<AppUser>(options)
 {
-    public DbSet<AppUser> Users { get; set; }
     public DbSet<Member> Members {get; set;}
     public DbSet<Photo> Photos {get; set;}
     public DbSet<MemberLike> Likes {get; set;}
@@ -16,6 +16,31 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<IdentityRole>()
+            .HasData(
+                new IdentityRole
+                {
+                    Id = "member-id",
+                    Name = "Member",
+                    NormalizedName = "MEMBER",
+                    ConcurrencyStamp = "2d0eace3-371d-4cc3-b3c0-dcc507d6f042"
+                },
+                new IdentityRole
+                {
+                    Id = "moderator-id",
+                    Name = "Moderator",
+                    NormalizedName = "MODERATOR",
+                    ConcurrencyStamp = "cceb4644-761e-4398-adf0-8d7553c5018a"
+                },
+                new IdentityRole
+                {
+                    Id = "admin-id",
+                    Name = "Admin",
+                    NormalizedName = "ADMIN",
+                    ConcurrencyStamp = "3d852008-e1f1-4c61-b761-3609b849af19"
+                }
+            );
 
         modelBuilder.Entity<MemberLike>()
             .HasKey(x => new { x.SourceMemberID, x.TargetMemberID });
